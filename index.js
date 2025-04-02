@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/userRouter");
+const propertyRouter = require("./routes/propertyRouter");
 
 //middlewares
 app.use(express.json());
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
   res.status(200).json({ success: true, message: "Beta Home Server" });
 });
 app.use("/api/v1", userRouter);
+app.use("/api/v1/property", propertyRouter);
 
 //error route
 app.use((req, res) => {
