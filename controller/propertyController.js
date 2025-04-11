@@ -1,9 +1,9 @@
 const Property = require("../models/property");
 const handleGetAllProperties = async (req, res) => {
-  const { location, bedrooms, sort } = req.query;
+  const { location, bedrooms, sort, title } = req.query;
 
   const page = parseInt(req.query.page) || 1;
-  const limit = 10;
+  const limit = 9;
   const queryObject = {};
   let result = Property.find(queryObject);
   if (location) {
@@ -12,6 +12,9 @@ const handleGetAllProperties = async (req, res) => {
 
   if (bedrooms) {
     queryObject.bedrooms = { $eq: Number(bedrooms) };
+  }
+  if (title) {
+    queryObject.title = { $regex: title, $options: "i" };
   }
   if (sort) {
     result = result.sort(`${sort} -createdAt`);
