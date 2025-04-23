@@ -41,5 +41,10 @@ const handleGetAllProperties = async (req, res) => {
     res.json(error);
   }
 };
+const getSingleProperty = async (req, res) => {
+  const { propertyId } = req.params;
+  const property = await Property.findById(propertyId);
+  res.status(200).json({ success: true, property });
+};
 
-module.exports = handleGetAllProperties;
+module.exports = { handleGetAllProperties, getSingleProperty };
